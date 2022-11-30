@@ -14,7 +14,6 @@ x = vec(x');                     #line up symbols
 #quantization
 nshutter = 8;     #number of shutters
 BER = [];
-for nshutter = 1:40
 nrange   = max(x); #range of signal
 q = round(nshutter*(x+nrange)/(2*nrange)); #qunatize the signal
 #noise
@@ -40,12 +39,3 @@ BER = [BER nERR/(ndat+4)] ;         #error rate
 BER_t = (1/2)*erfc(sqrt(EbNo));
 dV = ((2/nshutter)*(round(nshutter*(sqrt(Eb)+nrange)/(2*nrange)))-1)^2 - Eb;
 BER_q = (1/2)*erfc(sqrt((Eb+dV)/No));
-endfor
-##figures
-for i = 1:40
-  if(rem(i, 8) == 0)
-    pritnf("/n");
-  endif
-  printf("%f, ", BER(i));
-endfor
-printf("\n");
